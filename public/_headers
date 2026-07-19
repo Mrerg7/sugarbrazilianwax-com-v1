@@ -8,10 +8,6 @@
   Cache-Control: public, max-age=0, must-revalidate
   Link: <https://sugarbrazilianwax.com/>; rel="canonical"
 
-/index.html
-  Cache-Control: public, max-age=0, must-revalidate
-  X-Robots-Tag: noindex
-
 /404.html
   Cache-Control: public, max-age=0, must-revalidate
   X-Robots-Tag: noindex
