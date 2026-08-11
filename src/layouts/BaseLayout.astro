@@ -1,7 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import '../styles/global.css';
-import { SITE, OG_IMAGE, DOMAIN_OFFER } from '../config/site';
+import { SITE, OG_IMAGE, ACQUISITION_MAILTO } from '../config/site';
 
 interface Props {
   title?: string;
@@ -18,32 +17,8 @@ const {
 } = Astro.props;
 
 const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
-const canonicalURL = new URL(noindex ? '/' : pathname, `${SITE.url}/`);
-const publishedDate = '2026-07-08';
-const offerUrl = `${SITE.url}/#acquire`;
-
-const testimonials = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
-const ratingValues = testimonials.map((t) => t.data.rating);
-const ratingCount = ratingValues.length;
-const ratingValue =
-  ratingCount > 0
-    ? (ratingValues.reduce((sum, value) => sum + value, 0) / ratingCount).toFixed(1)
-    : null;
-
-const reviews = testimonials.map(({ data }) => ({
-  '@type': 'Review',
-  reviewBody: data.quote,
-  reviewRating: {
-    '@type': 'Rating',
-    ratingValue: String(data.rating),
-    bestRating: '5',
-    worstRating: '1',
-  },
-  author: {
-    '@type': 'Person',
-    name: data.author,
-  },
-}));
+const canonicalURL = new URL(noindex ? '/' : pathname, SITE.url);
+const publishedDate = '2026-07-07';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -71,50 +46,30 @@ const structuredData = {
         url: OG_IMAGE,
       },
     },
-    ...(!noindex
-      ? [
-          {
-            '@type': 'Product',
-            '@id': `${SITE.url}/#product`,
-            name: `${SITE.domain} Premium Domain Name`,
-            description:
-              'SEO-superior, keyword-rich .com domain for professional Brazilian sugar waxing and natural hair removal. Available for acquisition.',
-            url: SITE.url,
-            image: OG_IMAGE,
-            category: 'Premium Domain Name',
-            brand: {
-              '@type': 'Brand',
-              name: SITE.name,
-            },
-            offers: {
-              '@type': 'Offer',
-              url: offerUrl,
-              price: DOMAIN_OFFER.price,
-              priceCurrency: DOMAIN_OFFER.priceCurrency,
-              priceValidUntil: DOMAIN_OFFER.priceValidUntil,
-              availability: 'https://schema.org/InStock',
-              itemCondition: 'https://schema.org/NewCondition',
-              seller: {
-                '@type': 'Organization',
-                name: SITE.name,
-                email: SITE.email,
-              },
-            },
-            ...(ratingValue
-              ? {
-                  aggregateRating: {
-                    '@type': 'AggregateRating',
-                    ratingValue,
-                    reviewCount: String(ratingCount),
-                    bestRating: '5',
-                    worstRating: '1',
-                  },
-                  review: reviews,
-                }
-              : {}),
-          },
-        ]
-      : []),
+    {
+      '@type': 'Product',
+      '@id': `${SITE.url}/#product`,
+      name: `${SITE.name} Premium Domain Name`,
+      description:
+        'Premium exact-match .com domain for the natural sugaring and Brazilian wax industry. Available for acquisition.',
+      url: SITE.url,
+      image: OG_IMAGE,
+      category: 'Premium Domain Name',
+      brand: {
+        '@type': 'Brand',
+        name: SITE.name,
+      },
+      offers: {
+        '@type': 'Offer',
+        url: ACQUISITION_MAILTO,
+        availability: 'https://schema.org/InStock',
+        seller: {
+          '@type': 'Organization',
+          name: SITE.name,
+          email: SITE.email,
+        },
+      },
+    },
     {
       '@type': 'Organization',
       '@id': `${SITE.url}/#organization`,
@@ -147,14 +102,14 @@ const structuredData = {
     <meta property="og:image:secure_url" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${SITE.domain} — Premium Domain for Brazilian Sugar Waxing`} />
+    <meta property="og:image:alt" content={`${SITE.name} — Premium Domain for Natural Sugaring & Brazilian Wax`} />
     <meta property="og:locale" content={SITE.locale} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${SITE.domain} — Premium Domain for Brazilian Sugar Waxing`} />
+    <meta name="twitter:image:alt" content={`${SITE.name} — Premium Domain for Natural Sugaring & Brazilian Wax`} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style is:inline>
