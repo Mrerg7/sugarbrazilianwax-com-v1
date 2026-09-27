@@ -12,7 +12,7 @@ export const SITE = {
 
 /** Asking price for Product/Offer structured data (must match visible page content). */
 export const DOMAIN_OFFER = {
-  price: '4995.00',
+  price: '49000.00',
   priceCurrency: 'USD',
   priceValidUntil: '2027-07-09',
 } as const;
