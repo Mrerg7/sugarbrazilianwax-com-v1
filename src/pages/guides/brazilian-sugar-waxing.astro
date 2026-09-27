@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import MobileStickyCta from '../../components/MobileStickyCta.astro';
+import { ACQUISITION_MAILTO, SITE } from '../../config/site';
+import Icon from '../../components/Icon.astro';
+
+const title = 'Brazilian Sugar Waxing Guide | SugarBrazilianWax.com';
+const description =
+  'Learn how Brazilian sugar waxing works, why clients prefer sugaring, and why SugarBrazilianWax.com is the premium domain for this high-intent beauty niche.';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Guides', url: `${SITE.url}/guides/` },
+  { name: 'Brazilian Sugar Waxing', url: `${SITE.url}/guides/brazilian-sugar-waxing/` },
+];
+
+const faq = [
+  {
+    question: 'Is Brazilian sugar waxing the same as sugaring?',
+    answer:
+      'Yes. Brazilian sugar waxing typically refers to a Brazilian-style service performed with sugar paste instead of traditional hard or soft wax.',
+  },
+  {
+    question: 'Why do clients search for sugar Brazilian wax?',
+    answer:
+      'Many clients want a gentler, more natural alternative to hot wax. Exact-match domains like SugarBrazilianWax.com align with that search intent.',
+  },
+];
+---
+
+<BaseLayout {title} {description} type="article" {breadcrumbs} {faq}>
+  <Nav />
+  <main class="bg-cream">
+    <article class="max-w-3xl mx-auto px-6 py-14 sm:py-20">
+      <nav class="text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap gap-2">
+          <li><a href="/" class="hover:text-rose">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/guides/" class="hover:text-rose">Guides</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-gray-700">Brazilian Sugar Waxing</li>
+        </ol>
+      </nav>
+
+      <p class="section-label">EDUCATION · SEO CONTENT</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl font-semibold tracking-tight">
+        Brazilian Sugar Waxing: What Clients Search For
+      </h1>
+      <p class="mt-5 text-lg text-gray-600 leading-relaxed">
+        Brazilian sugar waxing combines two powerful commercial ideas: the Brazilian service clients already know, and
+        the natural sugaring method they increasingly prefer. That is exactly why
+        <strong>{SITE.domain}</strong> is such a strong brand and SEO asset.
+      </p>
+
+      <div class="prose-domain mt-10 space-y-6 text-gray-700 leading-relaxed">
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-900">How Brazilian sugar waxing works</h2>
+        <p>
+          Sugaring paste is typically made from sugar, lemon, and water. Unlike many traditional waxes applied hot, sugar
+          paste is used near body temperature. It adheres primarily to hair and dead skin cells, then is removed in the
+          direction of hair growth — a technique associated with less breakage and fewer ingrown hairs for many clients.
+        </p>
+
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Why the keyword matters</h2>
+        <p>
+          Searchers looking for “sugar Brazilian wax,” “Brazilian sugar waxing,” or “Brazilian sugaring” are often
+          ready to book or compare providers. An exact-match .com like {SITE.name} reinforces topical relevance, type-in
+          traffic, and brand trust for salons, mobile operators, product lines, and training brands.
+        </p>
+
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Business use cases</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Boutique studios specializing in natural intimate hair removal</li>
+          <li>Mobile and concierge sugaring services</li>
+          <li>Clean-beauty product brands selling sugar paste and aftercare</li>
+          <li>Esthetician training academies teaching Brazilian sugaring</li>
+        </ul>
+
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Own the category name</h2>
+        <p>
+          Domain names that match what customers type are scarce in high-intent beauty niches. If you are building or
+          scaling a Brazilian sugaring business, {SITE.domain} puts the category phrase in your brand URL.
+        </p>
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-border bg-white p-6 sm:p-8 text-center">
+        <p class="text-sm uppercase tracking-[2px] text-rose font-semibold">Domain for sale</p>
+        <p class="mt-2 text-2xl font-semibold tracking-tight">{SITE.name}</p>
+        <p class="mt-2 text-gray-600">Premium exact-match .com for Brazilian sugar waxing brands.</p>
+        <a
+          href="/#acquire"
+          class="mt-6 inline-flex items-center gap-2 btn-primary px-8 py-3 rounded-3xl font-semibold min-h-12"
+        >
+          Inquire to Acquire
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+        <p class="mt-4 text-sm text-gray-500">
+          Or email <a class="text-rose hover:underline" href={ACQUISITION_MAILTO}>{SITE.email}</a>
+        </p>
+      </div>
+
+      <p class="mt-8 text-sm text-gray-500">
+        Related:
+        <a href="/guides/sugaring-vs-waxing/" class="text-rose hover:underline">Sugaring vs traditional waxing</a>
+      </p>
+    </article>
+  </main>
+  <Footer />
+  <MobileStickyCta />
+</BaseLayout>

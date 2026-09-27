@@ -1,0 +1,156 @@
+---
+import { DOMAIN_OFFER, SITE } from '../config/site';
+import Icon from './Icon.astro';
+
+const askingPrice = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: DOMAIN_OFFER.priceCurrency,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+}).format(Number(DOMAIN_OFFER.price));
+---
+
+<form id="inquiry-form" class="text-left space-y-4" novalidate>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class="block">
+      <span class="text-sm font-medium text-gray-700">Name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        maxlength="80"
+        class="mt-1.5 w-full min-h-12 rounded-2xl border border-border bg-cream px-4 py-3 text-base text-gray-800 outline-none focus:border-rose focus:ring-2 focus:ring-rose/20"
+        placeholder="Your name"
+      />
+    </label>
+    <label class="block">
+      <span class="text-sm font-medium text-gray-700">Email</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        maxlength="120"
+        class="mt-1.5 w-full min-h-12 rounded-2xl border border-border bg-cream px-4 py-3 text-base text-gray-800 outline-none focus:border-rose focus:ring-2 focus:ring-rose/20"
+        placeholder="you@company.com"
+      />
+    </label>
+  </div>
+
+  <label class="block">
+    <span class="text-sm font-medium text-gray-700">Offer amount (USD)</span>
+    <input
+      type="text"
+      name="offer"
+      inputmode="decimal"
+      maxlength="32"
+      class="mt-1.5 w-full min-h-12 rounded-2xl border border-border bg-cream px-4 py-3 text-base text-gray-800 outline-none focus:border-rose focus:ring-2 focus:ring-rose/20"
+      placeholder={`e.g. ${askingPrice} or best offer`}
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-sm font-medium text-gray-700">Message</span>
+    <textarea
+      name="message"
+      rows="4"
+      maxlength="2000"
+      class="mt-1.5 w-full rounded-2xl border border-border bg-cream px-4 py-3 text-base text-gray-800 outline-none focus:border-rose focus:ring-2 focus:ring-rose/20 resize-y min-h-[120px]"
+      placeholder="Tell us about your intended use, timeline, and any questions."
+    ></textarea>
+  </label>
+
+  <p id="inquiry-error" class="hidden text-sm text-red-700" role="alert"></p>
+  <p id="inquiry-success" class="hidden text-sm text-emerald-700" role="status"></p>
+
+  <button
+    type="submit"
+    id="inquiry-submit"
+    class="inline-flex items-center justify-center gap-x-3 w-full px-10 py-4 btn-primary font-semibold text-lg rounded-3xl shadow-sm min-h-14"
+  >
+    <span>Send Acquisition Inquiry</span>
+    <Icon name="envelope" class="w-5 h-5" />
+  </button>
+
+  <p class="text-center text-xs text-gray-500">
+    Opens your email client with a pre-filled message to
+    <a href={`mailto:${SITE.email}`} class="text-rose hover:underline font-medium">{SITE.email}</a>.
+    Confidential · Serious buyers only.
+  </p>
+</form>
+
+<script define:vars={{ salesEmail: SITE.email, domain: SITE.domain }}>
+  const form = document.getElementById('inquiry-form');
+  const errorEl = document.getElementById('inquiry-error');
+  const successEl = document.getElementById('inquiry-success');
+  const submitBtn = document.getElementById('inquiry-submit');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form || !(form instanceof HTMLFormElement)) return;
+
+    errorEl?.classList.add('hidden');
+    successEl?.classList.add('hidden');
+
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const offer = String(data.get('offer') || '').trim();
+    const message = String(data.get('message') || '').trim();
+
+    if (!name || !email) {
+      if (errorEl) {
+        errorEl.textContent = 'Please enter your name and email.';
+        errorEl.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (errorEl) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.classList.remove('hidden');
+      }
+      return;
+    }
+
+    const subject = `Acquisition Inquiry - ${domain}`;
+    const body = [
+      `Hello,`,
+      ``,
+      `I am interested in acquiring ${domain}.`,
+      ``,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Offer: ${offer || 'Not specified'}`,
+      ``,
+      `Message:`,
+      message || 'Please provide details and next steps.',
+      ``,
+      `Best regards,`,
+      name,
+    ].join('\n');
+
+    const mailto = `mailto:${salesEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    if (submitBtn instanceof HTMLButtonElement) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-70');
+    }
+
+    window.location.href = mailto;
+
+    if (successEl) {
+      successEl.textContent = 'Your email app should open with the inquiry ready to send.';
+      successEl.classList.remove('hidden');
+    }
+
+    setTimeout(() => {
+      if (submitBtn instanceof HTMLButtonElement) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-70');
+      }
+    }, 2000);
+  });
+</script>

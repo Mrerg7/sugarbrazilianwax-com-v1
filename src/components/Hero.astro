@@ -1,12 +1,19 @@
 ---
-import { ACQUISITION_MAILTO, HERO_IMAGE, SITE } from '../config/site';
+import { ACQUISITION_MAILTO, DOMAIN_OFFER, HERO_IMAGE, SITE } from '../config/site';
 import Icon from './Icon.astro';
+
+const askingPrice = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: DOMAIN_OFFER.priceCurrency,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+}).format(Number(DOMAIN_OFFER.price));
 ---
 
 <header class="relative min-h-[100svh] flex items-end sm:items-center overflow-x-hidden border-b border-border bg-gray-900">
   <img
     src={HERO_IMAGE}
-    alt="Professional Brazilian sugar waxing — SugarWaxBrazilian.com"
+    alt="Professional Brazilian sugar waxing — SugarBrazilianWax.com"
     width="1920"
     height="1080"
     loading="eager"
@@ -38,10 +45,15 @@ import Icon from './Icon.astro';
         Own the exact phrase clients search for. Premium positioning in the growing natural hair removal market.
       </p>
 
+      <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm sm:text-base text-white border border-white/25">
+        <span class="font-semibold">{askingPrice}</span>
+        <span class="text-white/80">asking · offers considered</span>
+      </p>
+
       <div class="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href={ACQUISITION_MAILTO}
-          class="btn-primary px-10 py-4 text-lg font-semibold rounded-3xl flex items-center justify-center gap-x-3 shadow-lg shadow-rose-dark/20"
+          href="#acquire"
+          class="btn-primary px-10 py-4 text-lg font-semibold rounded-3xl flex items-center justify-center gap-x-3 shadow-lg shadow-rose-dark/20 min-h-12"
         >
           <span>Inquire to Acquire</span>
           <Icon name="arrow-right" class="w-5 h-5" />
@@ -49,7 +61,7 @@ import Icon from './Icon.astro';
 
         <a
           href="#market"
-          class="px-10 py-4 text-lg font-semibold border border-white/40 hover:bg-white/10 text-white rounded-3xl flex items-center justify-center gap-x-3 transition-colors"
+          class="px-10 py-4 text-lg font-semibold border border-white/40 hover:bg-white/10 text-white rounded-3xl flex items-center justify-center gap-x-3 transition-colors min-h-12"
         >
           <span>Explore Revenue Potential</span>
         </a>

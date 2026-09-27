@@ -1,6 +1,7 @@
 ---
 import { ACQUISITION_MAILTO, DOMAIN_OFFER, SITE } from '../config/site';
 import Icon from './Icon.astro';
+import InquiryForm from './InquiryForm.astro';
 
 const askingPrice = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -23,36 +24,29 @@ const askingPrice = new Intl.NumberFormat('en-US', {
       </p>
     </div>
 
-    <div class="bg-white border border-border rounded-3xl p-9 md:p-12 text-center">
-      <div class="mx-auto w-14 h-14 bg-cream rounded-2xl flex items-center justify-center mb-6">
-        <Icon name="handshake" class="w-8 h-8 text-rose" />
+    <div class="bg-white border border-border rounded-3xl p-6 sm:p-9 md:p-12">
+      <div class="text-center mb-8">
+        <div class="mx-auto w-14 h-14 bg-cream rounded-2xl flex items-center justify-center mb-6">
+          <Icon name="handshake" class="w-8 h-8 text-rose" />
+        </div>
+
+        <p class="text-sm uppercase tracking-[2px] text-gray-500 font-semibold">Asking price</p>
+        <p class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight text-rose-dark">{askingPrice}</p>
+        <p class="mt-2 text-sm text-gray-500">USD · Offers considered · Escrow available</p>
       </div>
 
-      <p class="text-sm uppercase tracking-[2px] text-gray-500 font-semibold">Asking price</p>
-      <p class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight text-rose-dark">{askingPrice}</p>
-      <p class="mt-2 text-sm text-gray-500">USD · Offers considered</p>
+      <InquiryForm />
 
-      <p class="text-gray-600 mt-8 mb-8">
-        To inquire about acquiring <strong>{SITE.domain}</strong>, contact us directly. All inquiries are handled with
-        strict confidentiality.
-      </p>
-
-      <a
-        href={ACQUISITION_MAILTO}
-        class="inline-flex items-center justify-center gap-x-3 w-full sm:w-auto px-10 py-4 btn-primary font-semibold text-lg rounded-3xl shadow-sm"
-      >
-        <span>Make an Offer</span>
-        <Icon name="envelope" class="w-5 h-5" />
-      </a>
-
-      <p class="mt-6 text-sm text-gray-500">
-        Or email directly:
-        <a href={`mailto:${SITE.email}`} class="text-rose hover:underline font-medium">{SITE.email}</a>
-      </p>
-
-      <p class="text-center text-xs text-gray-500 mt-4">
-        Your information is confidential. We only respond to serious, qualified buyers.
-      </p>
+      <div class="mt-8 pt-6 border-t border-border text-center">
+        <p class="text-sm text-gray-500 mb-3">Prefer email only?</p>
+        <a
+          href={ACQUISITION_MAILTO}
+          class="inline-flex items-center justify-center gap-x-2 text-rose font-semibold hover:underline"
+        >
+          Make an Offer via Email
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -68,8 +62,8 @@ const askingPrice = new Intl.NumberFormat('en-US', {
     </p>
 
     <a
-      href={ACQUISITION_MAILTO}
-      class="mt-8 inline-flex items-center gap-x-3 px-10 py-4 bg-white text-rose-dark font-semibold rounded-3xl text-base hover:bg-gray-100 transition-colors"
+      href="#acquire"
+      class="mt-8 inline-flex items-center gap-x-3 px-10 py-4 bg-white text-rose-dark font-semibold rounded-3xl text-base hover:bg-gray-100 transition-colors min-h-12"
     >
       Start the Conversation
       <Icon name="arrow-right" class="w-5 h-5" />

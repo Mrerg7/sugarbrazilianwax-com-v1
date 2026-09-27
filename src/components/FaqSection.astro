@@ -1,0 +1,34 @@
+---
+import { HOME_FAQS } from '../config/faqs';
+---
+
+<section id="faq" class="max-w-screen-xl mx-auto px-6 py-16" aria-labelledby="faq-heading">
+  <div class="text-center mb-10">
+    <div class="section-label">BUYER FAQ</div>
+    <h2 id="faq-heading" class="text-4xl md:text-5xl tracking-tighter font-semibold mt-3">
+      Answers before you inquire
+    </h2>
+    <p class="mt-4 max-w-md mx-auto text-gray-600">
+      Clear details on pricing, SEO value, transfer, and who this domain is built for.
+    </p>
+  </div>
+
+  <div class="max-w-3xl mx-auto divide-y divide-border border border-border rounded-3xl bg-white overflow-hidden">
+    {
+      HOME_FAQS.map((item) => (
+        <details class="group px-6 sm:px-8 py-1">
+          <summary class="cursor-pointer list-none flex items-center justify-between gap-4 py-5 text-left font-semibold text-lg tracking-tight text-gray-800 marker:content-none [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <span
+              class="shrink-0 w-8 h-8 rounded-full border border-border flex items-center justify-center text-rose group-open:rotate-45 transition-transform"
+              aria-hidden="true"
+            >
+              +
+            </span>
+          </summary>
+          <p class="pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import { ACQUISITION_MAILTO, DOMAIN_OFFER, SITE } from '../config/site';
+import Icon from './Icon.astro';
+
+const askingPrice = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: DOMAIN_OFFER.priceCurrency,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+}).format(Number(DOMAIN_OFFER.price));
+---
+
+<div
+  class="md:hidden fixed bottom-0 inset-x-0 z-50 border-t border-border bg-white/95 backdrop-blur-lg safe-bottom"
+  style="padding-bottom: env(safe-area-inset-bottom);"
+>
+  <div class="px-4 py-3 flex items-center gap-3">
+    <div class="min-w-0 flex-1">
+      <p class="text-xs text-gray-500 font-medium truncate">{SITE.domain}</p>
+      <p class="text-base font-semibold text-rose-dark leading-tight">{askingPrice} · Offers welcome</p>
+    </div>
+    <a
+      href="#acquire"
+      class="shrink-0 px-4 py-3 min-h-12 text-sm font-semibold border border-border rounded-2xl text-gray-800"
+    >
+      Details
+    </a>
+    <a
+      href={ACQUISITION_MAILTO}
+      class="shrink-0 btn-primary px-4 py-3 min-h-12 text-sm font-semibold rounded-2xl inline-flex items-center gap-2"
+    >
+      Inquire
+      <Icon name="envelope" class="w-4 h-4" />
+    </a>
+  </div>
+</div>

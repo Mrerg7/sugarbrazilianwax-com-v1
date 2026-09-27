@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import MobileStickyCta from '../../components/MobileStickyCta.astro';
+import { SITE } from '../../config/site';
+import Icon from '../../components/Icon.astro';
+
+const title = 'Guides | Brazilian Sugar Waxing Resources | SugarBrazilianWax.com';
+const description =
+  'Educational guides on Brazilian sugar waxing and sugaring vs waxing — plus how SugarBrazilianWax.com positions a premium beauty brand.';
+
+const breadcrumbs = [
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Guides', url: `${SITE.url}/guides/` },
+];
+
+const guides = [
+  {
+    href: '/guides/brazilian-sugar-waxing/',
+    title: 'Brazilian Sugar Waxing Guide',
+    blurb: 'How sugaring works, why clients search for it, and why the domain matches the category.',
+  },
+  {
+    href: '/guides/sugaring-vs-waxing/',
+    title: 'Sugaring vs Traditional Waxing',
+    blurb: 'Side-by-side comparison for comfort, ingredients, cleanup, and brand positioning.',
+  },
+];
+---
+
+<BaseLayout {title} {description} {breadcrumbs}>
+  <Nav />
+  <main class="bg-cream">
+    <section class="max-w-3xl mx-auto px-6 py-14 sm:py-20">
+      <p class="section-label">RESOURCES</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl font-semibold tracking-tight">Guides for Brazilian sugar waxing brands</h1>
+      <p class="mt-5 text-lg text-gray-600">
+        Practical education that supports SEO topical authority for {SITE.domain} — and helps buyers evaluate the
+        opportunity.
+      </p>
+
+      <div class="mt-10 space-y-4">
+        {
+          guides.map((guide) => (
+            <a
+              href={guide.href}
+              class="block rounded-3xl border border-border bg-white p-6 hover:border-rose/40 transition-colors"
+            >
+              <h2 class="text-xl font-semibold tracking-tight flex items-center gap-2">
+                {guide.title}
+                <Icon name="arrow-right" class="w-4 h-4 text-rose" />
+              </h2>
+              <p class="mt-2 text-gray-600">{guide.blurb}</p>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-center">
+        <a href="/#acquire" class="text-rose font-semibold hover:underline">Ready to acquire {SITE.domain}?</a>
+      </p>
+    </section>
+  </main>
+  <Footer />
+  <MobileStickyCta />
+</BaseLayout>
